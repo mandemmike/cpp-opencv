@@ -23,7 +23,8 @@
 // Include the GUI and image processing header files from OpenCV
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#include <ctime>
+#include<iostream>
+#include<ctime>
 #include <time.h>
 #include <chrono>
 
@@ -89,25 +90,25 @@ int32_t main(int32_t argc, char **argv) {
                 // TODO: Here, you can add some code to check the sampleTimePoint when the current frame was captured.
                 sharedMemory->unlock();
                 
-                    time_t current;
-                    current = time(NULL);
+                                time_t curr_time;
+	                            curr_time = time(NULL);
 
-                    char *tm = ctime(&current);
+	                            char *tm = ctime(&curr_time);
+                                std:: string a = tm;
 
-                    std:: string a = tm;
+                                const auto T = std::chrono::system_clock::now();
+                                std:: string b = std::to_string(std::chrono::duration_cast<std::chrono::microseconds>(
+                                T.time_since_epoch()).count());
+                                std:: string s = "NOW : " + a +" ts ; "+ b + " ; Araya, Michael";          
 
-                    const auto Time = std::chrono::system_clock::now();
-                    std:: string b = std::to_string(std::chrono::duration_cast<std::chrono::microseconds>(
-                        Time.time_since_epoch()).count());
-                    std:: string s = "NOW : " + a + " ts ; " + b + " ; Araya, Michael";
-                    
+
 
                 // TODO: Do something with the frame.
                 // Example: Draw a red rectangle and display image.
-                //cv::rectangle(img, cv::Point(50, 50), cv::Point(100, 100), cv::Scalar(0,0,255));
+                cv::rectangle(img, cv::Point(50, 50), cv::Point(100, 100), cv::Scalar(0,0,255));
 
-                cv::putText(img, s, cv::Point(100,10), cv::FONT_HERSHEY_DUPLEX, 0,4, cv::Scalar(250,0,0));
 
+                cv::putText(img,s,cv::Point(100,10),cv::FONT_HERSHEY_DUPLEX,0.4,cv::Scalar(250,0,0));
                 // If you want to access the latest received ground steering, don't forget to lock the mutex:
                 {
                     std::lock_guard<std::mutex> lck(gsrMutex);
@@ -125,4 +126,3 @@ int32_t main(int32_t argc, char **argv) {
     }
     return retCode;
 }
-
