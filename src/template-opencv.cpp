@@ -106,7 +106,7 @@ int32_t main(int32_t argc, char **argv) {
                 // Example: Draw a red rectangle and display image.
                 //cv::rectangle(img, cv::Point(50, 50), cv::Point(100, 100), cv::Scalar(0,0,255));
 
-                cv::putText(img, s, cv::Point(100,10), cv::FONT_HERSHEY_DUPLEX, 0,4, cv::Scalar(250,0,0), 2);
+                cv::putText(img, s, cv::Point(100,10), cv::FONT_HERSHEY_DUPLEX, 0,4, cv::Scalar(250,0,0));
 
                 // If you want to access the latest received ground steering, don't forget to lock the mutex:
                 {
