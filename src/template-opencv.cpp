@@ -23,6 +23,8 @@
 // Include the GUI and image processing header files from OpenCV
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+
+float originalSteering;
  
 cv::Mat getRegionOfInterest(cv::Mat img)
 {
@@ -97,6 +99,12 @@ cv::Mat findConeCenter(cv::Mat img)
        angleString = "Angle: " + std::to_string(steeringAngle);
 
        std::cout << angleString << std::endl;
+       float deviation = static_cast<float>(globalSteering - originalSteering);
+                   if(deviation < 0.05 && deviation > -0.05){
+                       std::cout << "clear" << std::endl;
+                   }else {
+                       std::cout << "not clear" << std::endl;
+                   }
        
 
 
@@ -153,7 +161,8 @@ int32_t main(int32_t argc, char **argv)
                // https://github.com/chrberger/libcluon/blob/master/libcluon/testsuites/TestEnvelopeConverter.cpp#L31-L40
                std::lock_guard<std::mutex> lck(gsrMutex);
                gsr = cluon::extractMessage<opendlv::proxy::GroundSteeringRequest>(std::move(env));
-               std::cout << "lambda: groundSteering = " << gsr.groundSteering() << std::endl;
+               originalSteering = gsr.groundSteering();
+               std::cout << "lambda: groundSteering = " << originalSteering << std::endl;
            };
  
            od4.dataTrigger(opendlv::proxy::GroundSteeringRequest::ID(), onGroundSteeringRequest);
