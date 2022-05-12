@@ -92,7 +92,7 @@ cv::Mat findConeCenter(cv::Mat img)
        globalSteering = steeringAngle;
        angleString = "Angle: " + std::to_string(steeringAngle);
 
-       std::string::cout << angleString << std::endl;
+       std:: << angleString << std::endl;
  
    return image_copy;
 }      
@@ -101,7 +101,7 @@ cv::Mat findConeCenter(cv::Mat img)
    
        
 
-
+/*
 cv::putText(image_copy,               // target image
                    angleString,         // text
                    cv::Point(70, 295), // top-left position
@@ -109,7 +109,7 @@ cv::putText(image_copy,               // target image
                    1.0,
                    CV_RGB(255, 0, 0), // font color
                    1);
-   //}
+   //}*/
  
 int32_t main(int32_t argc, char **argv)
 {
