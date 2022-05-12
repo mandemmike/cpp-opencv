@@ -23,6 +23,7 @@
 // Include the GUI and image processing header files from OpenCV
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+using namespace std;
 
 float globalSteering;
 float originalSteering;
@@ -81,25 +82,23 @@ cv::Mat findConeCenter(cv::Mat img)
                            static_cast<float>(mu[i].m01 / (mu[i].m00 + 1e-5)));
    }
  
-   // for (size_t i = 0; i < contours.size(); i++)
-   //{
  
        cv::drawContours(image_copy, contours, -1, cv::Scalar(0, 255, 0), 2);
  
        // Draw a circle to show the center point
        cv::circle(image_copy, mc[0], 4, cv::Scalar(0, 0, 255), -1);
  
+    steeringAngle = static_cast< float >(atan2(mc[0].y - mc[1].y, mc[0].x - mc[1].x));
+       globalSteering = steeringAngle;
+       angleString = "Angle: " + std::to_string(steeringAngle);
 
+       std::string::cout << angleString << std::endl;
  
    return image_copy;
 }      
 
  // Calculate the angle
-       steeringAngle = static_cast< float >(atan2(mc[0].y - mc[1].y, mc[0].x - mc[1].x));
-       globalSteering = steeringAngle;
-       angleString = "Angle: " + std::to_string(steeringAngle);
-
-       std::cout << angleString << std::endl;
+   
        
 
 
