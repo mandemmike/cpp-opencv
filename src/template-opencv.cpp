@@ -99,7 +99,7 @@ cv::Mat findConeCenter(cv::Mat img)
        angleString = "Angle: " + std::to_string(steeringAngle);
 
        std::cout << angleString << std::endl;
-       float deviation = static_cast<float>(globalSteering - originalSteering);
+       float deviation = static_cast<float>(steeringAngle - originalSteering);
                    if(deviation < 0.05 && deviation > -0.05){
                        std::cout << "clear" << std::endl;
                    }else {
