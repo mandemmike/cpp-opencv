@@ -23,10 +23,6 @@
 // Include the GUI and image processing header files from OpenCV
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-using namespace std;
-
-float globalSteering;
-float originalSteering;
  
 cv::Mat getRegionOfInterest(cv::Mat img)
 {
@@ -82,26 +78,28 @@ cv::Mat findConeCenter(cv::Mat img)
                            static_cast<float>(mu[i].m01 / (mu[i].m00 + 1e-5)));
    }
  
+   // for (size_t i = 0; i < contours.size(); i++)
+   //{
  
        cv::drawContours(image_copy, contours, -1, cv::Scalar(0, 255, 0), 2);
  
        // Draw a circle to show the center point
        cv::circle(image_copy, mc[0], 4, cv::Scalar(0, 0, 255), -1);
  
-    steeringAngle = static_cast< float >(atan2(mc[0].y - mc[1].y, mc[0].x - mc[1].x));
-       globalSteering = steeringAngle;
-       angleString = "Angle: " + std::to_string(steeringAngle);
 
-       cout << angleString << endl;
  
    return image_copy;
 }      
 
  // Calculate the angle
-   
+       steeringAngle = atan2(mc[0].y - mc[1].y, mc[0].x - mc[1].x);
+
+       angleString = "Angle: " + std::to_string(steeringAngle);
+
+       std::cout << angleString << std::endl;
        
 
-/*
+
 cv::putText(image_copy,               // target image
                    angleString,         // text
                    cv::Point(70, 295), // top-left position
@@ -109,7 +107,7 @@ cv::putText(image_copy,               // target image
                    1.0,
                    CV_RGB(255, 0, 0), // font color
                    1);
-   //}*/
+   //}
  
 int32_t main(int32_t argc, char **argv)
 {
@@ -155,8 +153,7 @@ int32_t main(int32_t argc, char **argv)
                // https://github.com/chrberger/libcluon/blob/master/libcluon/testsuites/TestEnvelopeConverter.cpp#L31-L40
                std::lock_guard<std::mutex> lck(gsrMutex);
                gsr = cluon::extractMessage<opendlv::proxy::GroundSteeringRequest>(std::move(env));
-               originalSteering = gsr.groundSteering();
-               std::cout << "lambda: groundSteering = " << originalSteering << std::endl;
+               std::cout << "lambda: groundSteering = " << gsr.groundSteering() << std::endl;
            };
  
            od4.dataTrigger(opendlv::proxy::GroundSteeringRequest::ID(), onGroundSteeringRequest);
@@ -213,12 +210,6 @@ int32_t main(int32_t argc, char **argv)
                {
                    cv::Mat resultingImg = findConeCenter(img);
                    cv::imshow(sharedMemory->name().c_str(), getRegionOfInterest(resultingImg));
-                   float deviation = static_cast<float>(globalSteering - originalSteering);
-                   if(deviation > 0.05 || deviation < -0.05){
-                       std::cout << "clear" << std::endl;
-                   }else {
-                       std::cout << "not clear" << std::endl;
-                   }
                    cv::waitKey(1);
                }
            }
