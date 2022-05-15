@@ -134,7 +134,10 @@ cv::Mat findConeCenter(cv::Mat img, double originalSteering, int frameCount)
                   CV_RGB(255, 0, 0), // font color
                   1);
 
-        imwrite(framePath, save_img);
+        if(frameCount < 100){
+            imwrite(framePath, save_img);
+        }
+        
 
         return image_copy;
 
@@ -160,8 +163,9 @@ cv::Mat findConeCenter(cv::Mat img, double originalSteering, int frameCount)
                   CV_RGB(255, 0, 0), // font color
                   1);
 
-        imwrite(framePath, save_img);
-           
+            if(frameCount < 100){
+                imwrite(framePath, save_img);
+            }           
        }
        else
        {
@@ -177,7 +181,9 @@ cv::Mat findConeCenter(cv::Mat img, double originalSteering, int frameCount)
                   CV_RGB(255, 0, 0), // font color
                   1);
 
-        imwrite(framePath, save_img);
+        if(frameCount < 100){
+            imwrite(framePath, save_img);
+        }
        }
        procent = (cleared / count) * 100;
        std::cout << procent << " procent cleared " << std::endl;
