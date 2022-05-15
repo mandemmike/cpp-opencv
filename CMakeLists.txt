@@ -104,15 +104,21 @@ add_dependencies(${PROJECT_NAME} generate_opendlv_standard_message_set_hpp)
 # Install executable.
 install(TARGETS ${PROJECT_NAME} DESTINATION bin COMPONENT ${PROJECT_NAME})
 
+# Test
+
+# enable_testing()
+
+# find_package(OpenCV REQUIRED COMPONENTS opencv_core opencv_imgproc opencv_calib3d opencv_video opencv_features2d opencv_ml opencv_highgui opencv_objdetect opencv_imgcodecs)
+
 
 # add executable target with <name> using <sources>
-add_executable (${PROJECT_NAME}-runner 
-                ${CMAKE_CURRENT_SOURCE_DIR}/src/tests/Main_Algorithm_Test.cpp
+#add_executable (${PROJECT_NAME}-runner 
+#                ${CMAKE_CURRENT_SOURCE_DIR}/src/tests/Main_Algorithm_Test.cpp
                 
              )
 
 # link the executable with <name> to the <libs> found in find_package above (?)
-target_link_libraries (${PROJECT_NAME}-runner ${OpenCV_LIBS})
+#target_link_libraries (${PROJECT_NAME}-runner ${OpenCV_LIBS})
 
 # add test with <name> using the executable after COMMAND with <name_of_executable>)
-add_test(NAME ${PROJECT_NAME}-runner COMMAND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-runner)
+# add_test(NAME ${PROJECT_NAME}-runner COMMAND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-runner)
