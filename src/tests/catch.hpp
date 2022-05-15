@@ -14,7 +14,7 @@
 
 
 #define CATCH_VERSION_MAJOR 2
-#define CATCH_VERSION_MINOR 13
+#define CATCH_VERSION_MINOR 11
 #define CATCH_VERSION_PATCH 7
 
 #ifdef __clang__

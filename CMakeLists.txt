@@ -91,10 +91,18 @@ find_package(OpenCV REQUIRED core highgui imgproc)
 include_directories(SYSTEM ${OpenCV_INCLUDE_DIRS})
 set(LIBRARIES ${LIBRARIES} ${OpenCV_LIBS})
 
+
+FILE(GLOB SRCFILES ${CMAKE_CURRENT_SOURCE_DIR}/src/*/*.cpp)
+ 
+add_executable(${PROJECT_NAME}
+                ${SRCFILES})
+ 
+target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
+
 ################################################################################
 # Create executable.
-add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/${PROJECT_NAME}.cpp)
-target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
+#add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/${PROJECT_NAME}.cpp)
+#target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
 
 # Add dependency to OpenDLV Standard Message Set.
 add_custom_target(generate_opendlv_standard_message_set_hpp DEPENDS ${CMAKE_BINARY_DIR}/opendlv-standard-message-set.hpp)
@@ -112,8 +120,9 @@ find_package(OpenCV REQUIRED COMPONENTS opencv_core opencv_imgproc opencv_calib3
 
 
 # add executable target with <name> using <sources>
-add_executable (${PROJECT_NAME}-runner  ${CMAKE_CURRENT_SOURCE_DIR}/src/tests/Main_Algorithm_Test.cpp
+add_executable (${PROJECT_NAME}-runner  
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/tests/Main_Algorithm.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/tests/Main_Algorithm_Test.cpp
                 
             )
 

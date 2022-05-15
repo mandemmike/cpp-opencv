@@ -10,24 +10,6 @@
 
 #define SIZE 11
 
-double GenerateRandom(double min, double max)
-{
-    static bool first = true;
-    if (first)
-    {
-        srand(time(NULL));
-        first = false;
-    }
-    if (min > max)
-    {
-        std::swap(min, max);
-    }
-    return min + (double)rand() * (max - min) / (double)RAND_MAX;
-}
-
-
-
-
 cv::Mat getRegionOfInterest(cv::Mat img)
 {
   cv::Rect ROI = cv::Rect(0, 265, 600, 100);
@@ -53,7 +35,7 @@ std::vector<std::vector<cv::Point>> detectBlueConeContours(cv::Mat img)
   cv::drawContours(image_copy, contours, -1, cv::Scalar(0, 255, 0), 2);
   return contours;
 }
-bool findConeCenter(cv::Mat img, double originalSteering)
+std::int16_t findConeCenter(cv::Mat img, double originalSteering)
 {
   std::vector<std::vector<cv::Point>> contours = detectBlueConeContours(img);
   cv::Mat image_copy = img.clone();
@@ -86,13 +68,11 @@ bool findConeCenter(cv::Mat img, double originalSteering)
       //double denominator = (mc[1].x - mc[0].x) * (mc[0].x - 325) + (mc[1].y - mc[0].y - 365);
       double ratio = numerator/denominator;
  
-      double angleRad = static_cast<float>(atan(ratio));
+      //double angleRad = static_cast<float>(atan(ratio));
      
      steeringAngle = static_cast<float>(atan2(mc[0].y - mc[1].y, mc[0].x - mc[1].x));
-     if (steeringAngle > 1.1){
-         steeringAngle = 0.0;
-     } else {
-         steeringAngle = angleRad / 12;
+     if (steeringAngle < 1  || steeringAngle > -1){
+         steeringAngle /= 10;
      }
        //steeringAngle = atan2(mc[0].y - mc[1].y, mc[0].x - mc[1].x);
        //steeringAngle /= 10;
@@ -118,7 +98,7 @@ bool findConeCenter(cv::Mat img, double originalSteering)
             CV_RGB(255, 0, 0), // font color
             1);
  
-           return true;
+           return 1;
  
     }
  
@@ -132,37 +112,5 @@ bool findConeCenter(cv::Mat img, double originalSteering)
  
     
  
-  return true;
+  return 1;
 }     
-
-int16_t Runner(){
-
-    bool test[SIZE];
-    std::string path;
-    std::string image_path;
-    int i = 0;
-
-    for(i = 1; i <= 10; i++) {
-        path = "frame";
-        path += i;
-        path += ".png";
-        image_path = cv::samples::findFile(path);
-        cv::Mat img = imread(image_path, cv::IMREAD_COLOR);
-
-        test[i] = findConeCenter(img, GenerateRandom(0.99, -0.99));
-
-    }
-    for(i = 1; i < SIZE; i++) {
-        if(!test[i]){
-            return 0;
-        }
-    }
-
-    return 1;
-
-}
-
-int main(){
-
-    }
-
