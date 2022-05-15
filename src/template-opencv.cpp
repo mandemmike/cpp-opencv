@@ -51,7 +51,7 @@ std::vector<std::vector<cv::Point>> detectBlueConeContours(cv::Mat img)
   cv::drawContours(image_copy, contours, -1, cv::Scalar(0, 255, 0), 2);
   return contours;
 }
-cv::Mat findConeCenter(cv::Mat img, double originalSteering, int frameCount)
+cv::Mat findConeCenter(cv::Mat img, double originalSteering, int frameNumber)
 {
   std::vector<std::vector<cv::Point>> contours = detectBlueConeContours(img);
   cv::Mat image_copy = img.clone();
@@ -99,14 +99,15 @@ cv::Mat findConeCenter(cv::Mat img, double originalSteering, int frameCount)
     double difference = abs(static_cast<double>(steeringAngle - originalSteering));
     std::cout << angleString << std::endl;
 
-    cv::Mat save_img; img >> save_img;
+    cv::Mat save_img = img.clone();
+
+    std::string framePath = "/tests/Resources/testFrame";
 
         if (save_img.empty()) {
 
             std::cerr << "Something is wrong with the webcam, could not get frame." << std::endl;
 
         } else {
-            std:string framePath = "/tests/Resources/testFrame";
             framePath += std::to_string(frameCount) + ".png";
             
             //imwrite(framePath, save_img); // A JPG FILE IS BEING SAVED
