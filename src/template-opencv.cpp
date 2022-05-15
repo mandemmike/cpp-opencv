@@ -99,20 +99,6 @@ cv::Mat findConeCenter(cv::Mat img, double originalSteering, int frameNumber)
     double difference = abs(static_cast<double>(steeringAngle - originalSteering));
     std::cout << angleString << std::endl;
 
-    cv::Mat save_img = img.clone();
-
-    std::string framePath = "/tests/Resources/testFrame";
-
-        if (save_img.empty()) {
-
-            std::cerr << "Something is wrong with the webcam, could not get frame." << std::endl;
-
-        } else {
-            framePath += std::to_string(frameCount) + ".png";
-            
-            //imwrite(framePath, save_img); // A JPG FILE IS BEING SAVED
-
-        }
  
     if(abs(originalSteering) == 0.0){
            deviation = 0.05;
@@ -127,18 +113,6 @@ cv::Mat findConeCenter(cv::Mat img, double originalSteering, int frameNumber)
         
 
         std::cout << procent << " procent cleared " << std::endl;
-
-        cv::putText(save_img,               // target image
-                  print,         // text
-                  cv::Point(70, 295), // top-left position
-                  cv::FONT_HERSHEY_DUPLEX,
-                  1.0,
-                  CV_RGB(255, 0, 0), // font color
-                  1);
-
-        if(frameCount < 100){
-            imwrite(framePath, save_img);
-        }
         
 
         return image_copy;
@@ -146,10 +120,6 @@ cv::Mat findConeCenter(cv::Mat img, double originalSteering, int frameNumber)
  
     }
     
-
-        // Save the frame into a file
-        
- 
        if (difference < deviation)
        {  
            cleared++;

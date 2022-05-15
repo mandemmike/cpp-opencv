@@ -1,5 +1,5 @@
-#ifndef Main_Algorithm_Test
-#define Main_Algorithm_Test
+#ifndef Main_Algorithm
+#define Main_Algorithm
 
 // Include the single-file, header-only middleware libcluon to create
 // high-performance microservices
@@ -10,14 +10,14 @@
 #include <opencv2/imgproc/imgproc.hpp>
 
 
-class AngleCalculator{
+class Main_Algorithm{
 
     public: 
-        uint16_t Runner(uint16_t test);
+        bool Runner();
         cv::Mat getRegionOfInterest(cv::Mat img);
         cv::Mat hsvConversion(cv::Mat img);
         std::vector<std::vector<cv::Point>> detectBlueConeContours(cv::Mat img);
-        
+
 
 };
 
