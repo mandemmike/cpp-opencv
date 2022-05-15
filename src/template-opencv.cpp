@@ -273,15 +273,7 @@ int32_t main(int32_t argc, char **argv)
               std::string timestampFinal = std::to_string(cluon::time::toMicroseconds(sampleTimeStampData.second));
               double originalSteering;
               frameCount++;
-              // Display my name on the image
-              cv::putText(img,               // target image
-                          frameInfo,         // text
-                          cv::Point(70, 70), // top-right position
-                          cv::FONT_HERSHEY_DUPLEX,
-                          1.0,
-                          CV_RGB(255, 255, 255), // font color
-                          1);
-             
+           
               // If you want to access the latest received ground steering, don't forget to lock the mutex:
               {
                   std::lock_guard<std::mutex> lck(gsrMutex);
