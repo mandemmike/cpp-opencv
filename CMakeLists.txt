@@ -112,8 +112,8 @@ find_package(OpenCV REQUIRED COMPONENTS opencv_core opencv_imgproc opencv_calib3
 
 
 # add executable target with <name> using <sources>
-add_executable (${PROJECT_NAME}-runner 
-                ${CMAKE_CURRENT_SOURCE_DIR}/src/tests/Main_Algorithm_Test.cpp
+add_executable (${PROJECT_NAME}-runner  ${CMAKE_CURRENT_SOURCE_DIR}/src/tests/Main_Algorithm_Test.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/tests/Main_Algorithm.cpp
                 
             )
 

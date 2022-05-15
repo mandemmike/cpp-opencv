@@ -2,7 +2,7 @@
 
 // Include the single-file, header-only middleware libcluon to create
 // high-performance microservices
-#include "cluon-complete-v0.0.127.hpp"
+//#include "../cluon-complete-v0.0.127.hpp"
 
 // Include the GUI and image processing header files from OpenCV
 #include <opencv2/highgui/highgui.hpp>
@@ -25,29 +25,6 @@ double GenerateRandom(double min, double max)
     return min + (double)rand() * (max - min) / (double)RAND_MAX;
 }
 
-bool runner(){
-
-    bool test[SIZE];
-
-    for(int i = 1; i <= 10; i++) {
-        std::string image_path = cv::samples::findFile("frame" + i + ".png");
-        cv::Mat img = imread(image_path, IMREAD_COLOR);
-
-        bool test[i] = findConeCenter(img, GenerateRandom(0.99, -0.99));
-
-    }
-
-    for(int i = 1; i < SIZE; i++) {
-        if(!test[i]){
-            return false;
-        }
-    }
-
-    
-
-
-
-}
 
 
 
@@ -122,16 +99,14 @@ bool findConeCenter(cv::Mat img, double originalSteering)
     angleString = "Angle: " + std::to_string(steeringAngle);
     double deviation = abs(originalSteering / 2);
     double difference = abs(static_cast<double>(steeringAngle - originalSteering));
-    std::cout << angleString << std::endl;
+    //std::cout << angleString << std::endl;
  
     if(abs(originalSteering) == 0.0){
         deviation = 0.05;
     }
  
     if (difference == 0.0) {
-        cleared++;
-        count++;
-        std::cout << "CLEAR" << std::endl;
+       // std::cout << "CLEAR" << std::endl;
         
  
  
@@ -148,17 +123,46 @@ bool findConeCenter(cv::Mat img, double originalSteering)
     }
  
     if (difference < deviation) {  
-           cleared++;
-           count++;
-           std::cout << "CLEAR" << std::endl;
+          // std::cout << "CLEAR" << std::endl;
     } else {
-           std::cout << "NOT CLEAR" << std::endl;
-           count++;
+           //std::cout << "NOT CLEAR" << std::endl;
     }
-    procent = (cleared / count) * 100;
+   //procent = (cleared / count) * 100;
  
  
     
  
   return true;
 }     
+
+int16_t Runner(){
+
+    bool test[SIZE];
+    std::string path;
+    std::string image_path;
+    int i = 0;
+
+    for(i = 1; i <= 10; i++) {
+        path = "frame";
+        path += i;
+        path += ".png";
+        image_path = cv::samples::findFile(path);
+        cv::Mat img = imread(image_path, cv::IMREAD_COLOR);
+
+        test[i] = findConeCenter(img, GenerateRandom(0.99, -0.99));
+
+    }
+    for(i = 1; i < SIZE; i++) {
+        if(!test[i]){
+            return 0;
+        }
+    }
+
+    return 1;
+
+}
+
+int main(){
+
+    }
+

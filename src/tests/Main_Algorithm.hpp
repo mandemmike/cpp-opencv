@@ -1,22 +1,23 @@
-#ifndef Main_Algorithm
-#define Main_Algorithm
+#ifndef MAIN_ALGORITHM
+#define MAIN_ALGORITHM
+
 
 // Include the single-file, header-only middleware libcluon to create
 // high-performance microservices
-#include "cluon-complete-v0.0.127.hpp"
+//#include "cluon-complete-v0.0.127.hpp"
 
 // Include the GUI and image processing header files from OpenCV
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
 
-class Main_Algorithm{
+class Main_Algorithm {
 
     public: 
-        bool Runner();
         cv::Mat getRegionOfInterest(cv::Mat img);
         cv::Mat hsvConversion(cv::Mat img);
         std::vector<std::vector<cv::Point>> detectBlueConeContours(cv::Mat img);
+        int16_t Runner();
 
 
 };

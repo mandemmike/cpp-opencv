@@ -1,15 +1,17 @@
+#include "catch.hpp"
+//#define CATCH_CONFIG_MAIN
+#include <iostream>
 #include "Main_Algorithm.hpp"
 
-#include "catch.hpp"
-#include <iostream>
 
 
 TEST_CASE("Test: Main Algorithm") {
 
-    Main_Algorithm ma;
+    Main_Algorithm mainAlgo;
+    int16_t actual = mainAlgo.Runner();
+    int16_t expected = 1;
 
-
-    REQUIRE(ma.Runner == true);
+    REQUIRE(actual == expected);
 
 
 }
