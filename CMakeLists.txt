@@ -115,7 +115,7 @@ install(TARGETS ${PROJECT_NAME} DESTINATION bin COMPONENT ${PROJECT_NAME})
 #add_executable (${PROJECT_NAME}-runner 
 #                ${CMAKE_CURRENT_SOURCE_DIR}/src/tests/Main_Algorithm_Test.cpp
                 
-             )
+#             )
 
 # link the executable with <name> to the <libs> found in find_package above (?)
 #target_link_libraries (${PROJECT_NAME}-runner ${OpenCV_LIBS})

@@ -107,7 +107,8 @@ cv::Mat findConeCenter(cv::Mat img, double originalSteering, int frameCount)
 
         } else {
             std:string framePath = "/tests/Resources/testFrame";
-            framePath += std::to_string(frameCount);
+            framePath += std::to_string(frameCount) + ".png";
+            
             //imwrite(framePath, save_img); // A JPG FILE IS BEING SAVED
 
         }
