@@ -1,4 +1,4 @@
-#include "Main_Algorithm.hpp"
+#include "mainAlgorithm.hpp"
 
 // Include the single-file, header-only middleware libcluon to create
 // high-performance microservices
@@ -114,3 +114,4 @@ std::int16_t findConeCenter(cv::Mat img, double originalSteering)
  
   return 1;
 }     
+

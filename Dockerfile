@@ -37,8 +37,8 @@ WORKDIR /opt/sources
 RUN mkdir build && \
     cd build && \
     cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/tmp .. && \
-    make && make install && make test
-
+    make && make install && cp ../frame1.png ./ && make CTEST_OUTPUT_ON_FAILURE=1 test
+## && cp ../src/tests/resources/frame1.png CMakeFiles/template-opencv.dir/src/test/resources/
 
 # Second stage for packaging the software into a software bundle:
 FROM ubuntu:22.04
